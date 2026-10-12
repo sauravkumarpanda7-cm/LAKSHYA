@@ -1,0 +1,129 @@
+{% extends "base.html" %}
+{% block content %}
+{% set start_url = url_for('task.dashboard') if 'user' in session else url_for('auth.register') %}
+<section id="home" style="padding-top:20px">
+    <div class="hero">
+        <div>
+            <h1>Turn Your Study Routine Into <em>a Quest.</em></h1>
+            <p class="sub">LAKSHYA combines productivity, gamification, and AI to help students study smarter, stay
+                consistent, and achieve their goals.</p>
+            <div class="row"><a class="btn p" href="{{ start_url }}">Start Your Quest</a><a class="btn o"
+                    href="#features">Explore Features</a></div>
+            <div class="metrics">
+                <div><b>AI</b><span>study assistant</span></div>
+                <div><b>XP</b><span>levels and streaks</span></div>
+                <div><b>1</b><span>place for your goals</span></div>
+            </div>
+        </div>
+        <div class="stage" id="stage" aria-hidden="true">
+            <div class="ring" style="width:410px;height:410px"></div>
+            <div class="ring" style="width:330px;height:330px;animation-direction:reverse"></div>
+            <div class="orb"></div>
+            <div class="orbit"><i></i></div>
+            <div class="orbit o2"><i></i></div>
+            <div class="fc glass" data-f="14" style="left:0;top:50px">🔥 7 Day Streak</div>
+            <div class="fc glass" data-f="18" style="right:0;top:90px">⭐ Level 12</div>
+            <div class="fc glass" data-f="12" style="left:4%;bottom:70px">⚡ +250 XP</div>
+            <div class="fc glass" data-f="16" style="right:2%;bottom:30px">🎯 5 Quests Completed</div>
+        </div>
+    </div>
+</section>
+
+<section id="features">
+    <h2 class="t">Everything You Need to Study Smarter</h2>
+    <p class="lead">Select any card to see what it does.</p>
+    <div class="grid" id="fgrid">
+        <button class="glass fcard" data-i="0">
+            <div class="ico">🤖</div>
+            <h3>AI Study Assistant</h3>
+            <p>Get instant help with programming, DSA, concepts, and interview preparation.</p>
+        </button>
+        <button class="glass fcard" data-i="1">
+            <div class="ico">🎯</div>
+            <h3>Daily Quests</h3>
+            <p>Turn your study tasks into exciting daily missions.</p>
+        </button>
+        <button class="glass fcard" data-i="2">
+            <div class="ico">⚡</div>
+            <h3>XP &amp; Levels</h3>
+            <p>Earn XP every time you complete a task and level up.</p>
+        </button>
+        <button class="glass fcard" data-i="3">
+            <div class="ico">🔥</div>
+            <h3>Study Streak</h3>
+            <p>Maintain your daily learning streak.</p>
+        </button>
+        <button class="glass fcard" data-i="4">
+            <div class="ico">📊</div>
+            <h3>Progress Tracking</h3>
+            <p>See your level, XP and completed tasks at a glance.</p>
+        </button>
+        <button class="glass fcard" data-i="5">
+            <div class="ico">🏆</div>
+            <h3>Achievements</h3>
+            <p>Unlock badges and achievements for reaching milestones.</p>
+        </button>
+    </div>
+</section>
+
+<section id="how">
+    <h2 class="t">How It Works</h2>
+    <p class="lead">Three steps from plan to progress.</p>
+    <div class="grid">
+        <div class="glass step"><b>1</b>
+            <h3>Add your quests</h3>
+            <p>Turn today's study tasks into missions with an XP reward.</p>
+        </div>
+        <div class="glass step"><b>2</b>
+            <h3>Complete and earn XP</h3>
+            <p>Finish quests to level up and keep your streak going.</p>
+        </div>
+        <div class="glass step"><b>3</b>
+            <h3>Get AI help</h3>
+            <p>Stuck? Ask the assistant for explanations, plans, or practice.</p>
+        </div>
+    </div>
+</section>
+
+<section id="about">
+    <div class="glass about">
+        <h2 class="t" style="margin-bottom:14px">About LAKSHYA</h2>
+        <p><strong>LAKSHYA</strong> is a student productivity platform that turns studying into a game. It pairs task
+            tracking, XP, levels, and streaks with an AI assistant, so students stay consistent and get help when they
+            are stuck. Built with HTML, CSS, and JavaScript as a college project.</p>
+    </div>
+    <div class="grid" style="margin-top:24px">
+        <div class="glass step"><b>🎯</b>
+            <h3>Focus</h3>
+            <p>Pick today's quests and cut the noise.</p>
+        </div>
+        <div class="glass step"><b>📘</b>
+            <h3>Learn</h3>
+            <p>Study with an AI assistant that explains and quizzes.</p>
+        </div>
+        <div class="glass step"><b>🏆</b>
+            <h3>Achieve</h3>
+            <p>See your XP, streak, and badges grow.</p>
+        </div>
+    </div>
+    <div class="glass cta">
+        <h2>Ready to hit your goal?</h2>
+        <p>Open the assistant or check your progress.</p>
+        <div class="row" style="justify-content:center">
+            <a class="btn p" href="{{ start_url }}">Start Your Quest</a>
+
+            {% if 'user' in session %}
+            <a class="btn o" href="{{ url_for('task.dashboard') }}">Open Dashboard</a>
+            {% else %}
+            <a class="btn o" href="{{ url_for('auth.login') }}">Log in</a>
+            {% endif %}
+        </div>
+    </div>
+</section>
+
+<div class="modal" id="modal" role="dialog" aria-modal="true">
+    <div class="mbox glass"><button class="x" id="mx" aria-label="Close">✕</button>
+        <div id="mc"></div>
+    </div>
+</div>
+{% endblock %}

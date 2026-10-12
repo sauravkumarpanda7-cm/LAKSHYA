@@ -1,0 +1,64 @@
+{% extends "base.html" %}
+{% block title %}AI Assistant | LAKSHYA{% endblock %}
+{% block content %}
+<div style="padding-top:30px">
+<section id="ai-assistant">
+  <h1 class="t" style="font-size:clamp(28px,4vw,40px);letter-spacing:-.8px">Your AI Study Assistant</h1>
+  <p class="lead">Ask about code, concepts, errors, or your study plan.</p>
+
+  <div class="glass chat">
+    <aside class="side">
+      <button class="nc" id="nc">+ New chat</button>
+      <h4>Recent</h4>
+      <div id="conv-list" class="conv-list"></div>
+      <h4 style="margin-top:14px">Topics</h4>
+      <button class="hi" data-p="Explain Java HashMap">Java HashMap</button>
+      <button class="hi" data-p="Create my study plan">Study plan</button>
+      <button class="hi" data-p="Explain this error">Debug an error</button>
+      <button class="hi" data-p="Help me prepare for an interview">Interview prep</button>
+    </aside>
+
+    <div class="main">
+      <div class="chead">
+        <div class="av" style="background:linear-gradient(135deg,#7C3AED,#A855F7);color:#fff">AI</div>
+        <div>
+          <strong>LAKSHYA AI</strong>
+          <small>● Online</small>
+        </div>
+      </div>
+
+      <div class="msgs" id="msgs" aria-live="polite" data-username="{{ username }}"></div>
+
+      <div class="sug" id="sug">
+        <button>Explain Java HashMap</button>
+        <button>Give me a DSA problem</button>
+        <button>Create my study plan</button>
+        <button>Explain this error</button>
+      </div>
+
+      <div class="inp">
+        <input id="in" placeholder="Ask anything about your studies…" aria-label="Message">
+        <button class="ib" id="spk" aria-pressed="false" title="Read replies aloud" aria-label="Read replies aloud">🔈</button>
+        <button class="ib" id="mic" aria-label="Voice input">🎤</button>
+        <button class="ib go" id="send" aria-label="Send">➤</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="grid4" id="caps">
+    <button class="glass fcard" data-p="Explain Java HashMap">
+      <div class="ico">💻</div><h3>Code help</h3><p>Understand Java, DSA, and fix errors.</p>
+    </button>
+    <button class="glass fcard" data-p="Create my study plan">
+      <div class="ico">🗓</div><h3>Study plans</h3><p>Get a weekly plan for your goal.</p>
+    </button>
+    <button class="glass fcard" data-p="Help me prepare for an interview">
+      <div class="ico">🎤</div><h3>Interview prep</h3><p>Practise questions and get feedback.</p>
+    </button>
+    <button class="glass fcard" data-p="Give me a DSA problem">
+      <div class="ico">🧩</div><h3>Daily practice</h3><p>A fresh problem to solve every day.</p>
+    </button>
+  </div>
+</section>
+</div>
+{% endblock %}

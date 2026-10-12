@@ -1,0 +1,637 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+    <title>{% block title %}LAKSHYA | Focus. Learn. Achieve.{% endblock %}</title>
+    <link rel="icon"
+        href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%2309090F'/%3E%3Cpath d='M24 25H16V6' fill='none' stroke='%23A855F7' stroke-width='3.4' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E">
+    <link rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+
+<body>
+
+    <!-- ═══ PREMIUM PRELOADER ═══ -->
+    <div id="preloader" class="preloader">
+        <div class="preloader-inner">
+
+            <div class="preloader-mark">
+                <svg viewBox="0 0 120 120" width="80" height="80" aria-hidden="true">
+                    <defs>
+                        <linearGradient id="plg" x1="0" y1="1" x2="1" y2="0">
+                            <stop offset="0" stop-color="#7C3AED" />
+                            <stop offset="1" stop-color="#A855F7" />
+                        </linearGradient>
+                    </defs>
+                    <circle cx="60" cy="60" r="44" fill="none" stroke="rgba(168,85,247,.25)" stroke-width="4" />
+                    <circle class="pl-ring" cx="60" cy="60" r="44" fill="none" stroke="url(#plg)" stroke-width="4"
+                        stroke-linecap="round" stroke-dasharray="80 200" transform="rotate(-90 60 60)" />
+                    <circle cx="60" cy="60" r="28" fill="none" stroke="rgba(168,85,247,.18)" stroke-width="4" />
+                    <path d="M94 98H60V14" fill="none" stroke="url(#plg)" stroke-width="6" stroke-linecap="round"
+                        stroke-linejoin="round" />
+                    <path d="M45 24L60 9L75 24" fill="none" stroke="url(#plg)" stroke-width="6" stroke-linecap="round"
+                        stroke-linejoin="round" />
+                    <circle class="pl-dot" cx="60" cy="60" r="5" fill="#F97316" />
+                </svg>
+            </div>
+
+            <div class="preloader-word">LAKSHYA</div>
+            <div class="preloader-tag">FOCUS · LEARN · ACHIEVE</div>
+
+            <div class="preloader-bar">
+                <span></span>
+            </div>
+
+        </div>
+    </div>
+
+    <svg width="0" height="0" style="position:absolute" aria-hidden="true">
+        <defs>
+            <linearGradient id="v" x1="0" y1="1" x2="1" y2="0">
+                <stop offset="0" stop-color="#5B21B6" />
+                <stop offset="1" stop-color="#A855F7" />
+            </linearGradient>
+            <linearGradient id="e" x1="0" y1="1" x2="0" y2="0">
+                <stop offset="0" stop-color="#7C3AED" />
+                <stop offset="1" stop-color="#C4B5FD" />
+            </linearGradient>
+            <mask id="m">
+                <rect width="120" height="120" fill="#fff" />
+                <path d="M94 98H60V14" fill="none" stroke="#000" stroke-width="18" stroke-linejoin="round"
+                    stroke-linecap="round" />
+                <path d="M45 24L60 9L75 24" fill="none" stroke="#000" stroke-width="19" stroke-linejoin="round"
+                    stroke-linecap="round" />
+            </mask>
+            <symbol id="lk" viewBox="0 0 120 120">
+                <g mask="url(#m)">
+                    <circle cx="60" cy="60" r="44" fill="none" stroke="url(#v)" stroke-width="5"
+                        stroke-dasharray="220 56.5" />
+                    <circle cx="60" cy="60" r="28" fill="none" stroke="url(#v)" stroke-width="5" />
+                </g>
+                <rect x="91.5" y="30" width="7" height="7" transform="rotate(45 95 33.5)" fill="#C4B5FD" />
+                <path d="M94 98H60V14" fill="none" stroke="url(#e)" stroke-width="9" stroke-linejoin="round"
+                    stroke-linecap="round" />
+                <path d="M45 24L60 9L75 24" fill="none" stroke="url(#e)" stroke-width="9" stroke-linejoin="round"
+                    stroke-linecap="round" />
+                <circle cx="60" cy="60" r="6" fill="#F97316" />
+            </symbol>
+        </defs>
+    </svg>
+
+    {% set ep = request.endpoint %}
+
+    <header>
+        <div class="wrap">
+            <nav class="glass">
+                <a class="logo" href="{{ url_for('auth.home') }}" aria-label="LAKSHYA home">
+                    <svg class="mark" viewBox="0 0 120 120" width="40" height="40" aria-hidden="true">
+                        <use href="#lk" />
+                    </svg>
+                    <span class="wm">LAKSHYA</span>
+                </a>
+                <div class="links" id="links">
+                    <a href="{{ url_for('auth.home') }}" data-sec="home"
+                        class="{{ 'active' if ep == 'auth.home' }}">Home</a>
+                    <a href="{{ url_for('auth.home') }}#features" data-sec="features">Features</a>
+                    <a href="{{ url_for('auth.home') }}#how" data-sec="how">How It Works</a>
+                    <a href="{{ url_for('auth.home') }}#about" data-sec="about">About</a>
+                    {% if 'user' in session %}
+                    <a href="{{ url_for('ai.assistant') }}" class="{{ 'active' if ep == 'ai.assistant' }}">AI
+                        Assistant</a>
+                    <a href="{{ url_for('task.dashboard') }}"
+                        class="{{ 'active' if ep == 'task.dashboard' }}">Dashboard</a>
+                    {% endif %}
+                </div>
+                <div class="navbtn">
+                    {% if 'user' in session %}
+                    <a class="btn o login" href="{{ url_for('auth.logout') }}">Logout</a>
+                    {% else %}
+                    <a class="btn o login" href="{{ url_for('auth.login') }}">Login</a>
+                    <a class="btn p" href="{{ url_for('auth.register') }}">Start Your Quest</a>
+                    {% endif %}
+                    <button class="burger" id="burger" aria-label="Menu">☰</button>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <main class="wrap">
+        {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+        <div class="flashes">
+            {% for category, message in messages %}
+            <div class="flash {{ category }}">{{ message }}</div>
+            {% endfor %}
+        </div>
+        {% endif %}
+        {% endwith %}
+
+        {% block content %}{% endblock %}
+    </main>
+
+    <footer>
+        <div style="display:flex;align-items:center;justify-content:center;gap:10px;margin-bottom:10px">
+            <svg viewBox="0 0 120 120" width="30" height="30" aria-hidden="true">
+                <use href="#lk" />
+            </svg>
+            <strong style="letter-spacing:3px;color:var(--t)">LAKSHYA</strong>
+        </div>
+        Built with ❤️ by LAKSHYA · © 2026
+        <div class="flinks">
+            <a href="{{ url_for('auth.home') }}">Home</a>
+            <a href="{{ url_for('auth.home') }}#features">Features</a>
+            {% if 'user' in session %}
+            <a href="{{ url_for('ai.assistant') }}">AI Assistant</a>
+            <a href="{{ url_for('task.dashboard') }}">Dashboard</a>
+            {% endif %}
+        </div>
+    </footer>
+
+    <button class="top" id="top" aria-label="Back to top">↑</button>
+    <div class="toast glass" id="toast"></div>
+
+    <!-- Delete confirmation modal -->
+    <div class="confirm-overlay" id="confirm-modal" role="dialog" aria-modal="true" aria-hidden="true">
+        <div class="confirm-box glass">
+            <div class="confirm-icon">🗑️</div>
+            <h3 class="confirm-title">Delete this chat?</h3>
+            <p class="confirm-text">This action can't be undone. The conversation will be permanently removed.</p>
+            <div class="confirm-actions">
+                <button class="btn o" id="confirm-cancel" type="button">Cancel</button>
+                <button class="btn danger" id="confirm-ok" type="button">Delete</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        window.LAKSHYA_URLS = {
+            chat: "{{ url_for('ai.chat') }}",
+            assistant: "{{ url_for('ai.assistant') }}",
+            dashboard: "{{ url_for('task.dashboard') }}"
+        };
+    </script>
+
+    <script>
+        (function () {
+            const $ = s => document.querySelector(s);
+            const $$ = s => document.querySelectorAll(s);
+            const URLS = window.LAKSHYA_URLS || {};
+
+            function toast(text) {
+                const t = $('#toast');
+                if (!t) return;
+                t.textContent = text;
+                t.classList.add('show');
+                clearTimeout(toast.timer);
+                toast.timer = setTimeout(() => t.classList.remove('show'), 2600);
+            }
+
+            if ($('#burger') && $('#links')) {
+                $('#burger').onclick = () => $('#links').classList.toggle('open');
+            }
+
+            $$('a[href*="#"]').forEach(link => {
+                link.addEventListener('click', e => {
+                    if (link.pathname !== location.pathname) return;
+                    const id = link.hash.slice(1);
+                    if (!id) return;
+                    const target = document.getElementById(id);
+                    if (!target) return;
+                    e.preventDefault();
+                    target.scrollIntoView({ behavior: 'smooth' });
+                    history.replaceState(null, '', link.hash);
+                    const links = $('#links');
+                    if (links) links.classList.remove('open');
+                });
+            });
+
+            if ($('#features')) {
+                const spy = new IntersectionObserver(entries => {
+                    entries.forEach(en => {
+                        if (!en.isIntersecting) return;
+                        $$('.links a[data-sec]').forEach(a =>
+                            a.classList.toggle('active', a.dataset.sec === en.target.id));
+                    });
+                }, { rootMargin: '-45% 0px -50% 0px' });
+                ['home', 'features', 'how', 'about']
+                    .map(id => document.getElementById(id))
+                    .filter(Boolean)
+                    .forEach(el => spy.observe(el));
+            }
+
+            if ($('#fgrid')) {
+                const features = [
+                    ['🤖', 'AI Study Assistant', 'Get instant help with programming, DSA, concepts, and interview preparation.',
+                        ['Answers in seconds, any time', 'Explains errors step by step', 'Builds practice questions'], URLS.assistant],
+                    ['🎯', 'Daily Quests', 'Turn your study tasks into exciting daily missions.',
+                        ['Clear daily goals', 'XP reward on every quest', 'Less procrastination'], URLS.dashboard],
+                    ['⚡', 'XP & Levels', 'Earn XP every time you complete a task and level up.',
+                        ['Instant feedback on effort', 'Visible progress', 'Keeps you motivated'], URLS.dashboard],
+                    ['🔥', 'Study Streak', 'Maintain your daily learning streak.',
+                        ['Builds a daily habit', 'Rewards consistency', 'Easy to see at a glance'], URLS.dashboard],
+                    ['📊', 'Progress Tracking', 'See your level, XP and completed tasks at a glance.',
+                        ['Know exactly where you stand', 'Spot what is left to do', 'Plan smarter sessions'], URLS.dashboard],
+                    ['🏆', 'Achievements', 'Unlock badges and achievements for reaching milestones.',
+                        ['Celebrate small wins', 'Unlock new badges', 'Share your progress'], URLS.dashboard]
+                ];
+                const grid = $('#fgrid');
+                if (!grid.children.length) {
+                    grid.innerHTML = features.map((f, i) => `
+                    <button class="glass fcard" data-i="${i}">
+                        <div class="ico">${f[0]}</div>
+                        <h3>${f[1]}</h3>
+                        <p>${f[2]}</p>
+                    </button>`).join('');
+                }
+                const modal = $('#modal');
+                if (modal) {
+                    const closeModal = () => modal.classList.remove('active');
+                    grid.addEventListener('click', e => {
+                        const card = e.target.closest('.fcard');
+                        if (!card) return;
+                        const f = features[card.dataset.i];
+                        if (!f) return;
+                        $('#mc').innerHTML = `
+                        <div class="ico">${f[0]}</div>
+                        <h2 style="font-size:24px">${f[1]}</h2>
+                        <p style="color:var(--m);margin-top:6px">${f[2]}</p>
+                        <ul>${f[3].map(b => `<li>${b}</li>`).join('')}</ul>
+                        <a class="btn p" href="${f[4]}">Try Feature</a>`;
+                        modal.classList.add('active');
+                    });
+                    $('#mx').onclick = closeModal;
+                    modal.addEventListener('click', e => { if (e.target === modal) closeModal(); });
+                    window.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal(); });
+                }
+            }
+
+            if ($('#msgs')) {
+                const chat = $('#msgs');
+                const history = [];
+                let speakOn = false;
+                let busy = false;
+                let currentConvId = null;
+
+                function escapeHtml(s) {
+                    return String(s).replace(/[&<>"']/g, c => ({
+                        '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;'
+                    }[c]));
+                }
+
+                function askConfirm() {
+                    return new Promise(resolve => {
+                        const modal = document.getElementById('confirm-modal');
+                        const okBtn = document.getElementById('confirm-ok');
+                        const cancelBtn = document.getElementById('confirm-cancel');
+                        if (!modal || !okBtn || !cancelBtn) return resolve(false);
+
+                        const close = (val) => {
+                            modal.classList.remove('show');
+                            modal.setAttribute('aria-hidden', 'true');
+                            okBtn.removeEventListener('click', onOk);
+                            cancelBtn.removeEventListener('click', onCancel);
+                            modal.removeEventListener('click', onBackdrop);
+                            document.removeEventListener('keydown', onEsc);
+                            resolve(val);
+                        };
+                        const onOk = () => close(true);
+                        const onCancel = () => close(false);
+                        const onBackdrop = (e) => { if (e.target === modal) close(false); };
+                        const onEsc = (e) => { if (e.key === 'Escape') close(false); };
+
+                        okBtn.addEventListener('click', onOk);
+                        cancelBtn.addEventListener('click', onCancel);
+                        modal.addEventListener('click', onBackdrop);
+                        document.addEventListener('keydown', onEsc);
+
+                        modal.classList.add('show');
+                        modal.setAttribute('aria-hidden', 'false');
+                    });
+                }
+
+                async function loadConversationList() {
+                    try {
+                        const res = await fetch('/api/conversations');
+                        if (!res.ok) return;
+                        const data = await res.json();
+                        const list = $('#conv-list');
+                        if (!list) return;
+
+                        if (!data.conversations || !data.conversations.length) {
+                            list.innerHTML = '<p class="empty-mini">No chats yet.</p>';
+                            return;
+                        }
+
+                        list.innerHTML = data.conversations.map(c => `
+                        <div class="conv-item" data-id="${c.id}">
+                            <span class="conv-title">${escapeHtml(c.title)}</span>
+                            <button class="conv-del" data-del="${c.id}" title="Delete">✕</button>
+                        </div>
+                    `).join('');
+
+                        list.querySelectorAll('.conv-item').forEach(el => {
+                            el.addEventListener('click', (e) => {
+                                if (e.target.classList.contains('conv-del')) return;
+                                openConversation(parseInt(el.dataset.id));
+                            });
+                        });
+
+                        list.querySelectorAll('.conv-del').forEach(btn => {
+                            btn.addEventListener('click', async (e) => {
+                                e.stopPropagation();
+                                const ok = await askConfirm();
+                                if (!ok) return;
+                                await fetch('/api/conversations/' + btn.dataset.del, { method: 'DELETE' });
+                                if (parseInt(btn.dataset.del) === currentConvId) newChat();
+                                loadConversationList();
+                            });
+                        });
+                    } catch (err) {
+                        console.warn('Load conversations failed', err);
+                    }
+                }
+
+                async function ensureConversation() {
+                    if (currentConvId) return currentConvId;
+                    const res = await fetch('/api/conversations', { method: 'POST' });
+                    const data = await res.json();
+                    currentConvId = data.id;
+                    return currentConvId;
+                }
+
+                async function saveMsgToServer(role, content) {
+                    try {
+                        const cid = await ensureConversation();
+                        await fetch(`/api/conversations/${cid}/messages`, {
+                            method: 'POST',
+                            headers: { 'Content-Type': 'application/json' },
+                            body: JSON.stringify({ role, content })
+                        });
+                    } catch (err) {
+                        console.warn('Save message failed', err);
+                    }
+                }
+
+                async function openConversation(cid) {
+                    try {
+                        const res = await fetch('/api/conversations/' + cid);
+                        if (!res.ok) return;
+                        const data = await res.json();
+                        currentConvId = cid;
+                        history.length = 0;
+                        chat.innerHTML = '';
+                        data.messages.forEach(m => {
+                            addMessage(m.content, m.role === 'user' ? 'u' : 'a');
+                            history.push({ role: m.role, content: m.content });
+                        });
+                        const sug = $('#sug');
+                        if (sug) sug.style.display = 'none';
+                    } catch (err) {
+                        console.warn('Open conversation failed', err);
+                    }
+                }
+
+                const demoAnswers = {
+                    'hashmap': 'A HashMap stores key-value pairs. It hashes the key to find a bucket, so get() and put() are O(1) on average.',
+                    'plan': '4-week plan:\nWeek 1: arrays, strings, hashing\nWeek 2: linked lists, stacks, queues\nWeek 3: trees, recursion, binary search\nWeek 4: graphs, DP basics, revision',
+                    'error': 'Paste the error message and the code around it. I will explain what it means and how to fix it.',
+                    'interview': 'Start with a 60-second intro, prepare two project stories, and practise 10 core questions.'
+                };
+                const demoReply = prompt => {
+                    const key = Object.keys(demoAnswers).find(k => prompt.toLowerCase().includes(k));
+                    return key ? demoAnswers[key] : 'I can help with DSA, programming, study plans, DBMS, OS, and interviews. Try asking something like "explain HashMap" or "give me a 4-week plan".';
+                };
+
+                async function getAIResponse(prompt) {
+                    if (!URLS.chat) { toast('Chat endpoint not configured.'); return demoReply(prompt); }
+                    const controller = new AbortController();
+                    const timer = setTimeout(() => controller.abort(), 90000);
+                    try {
+                        const res = await fetch(URLS.chat, {
+                            method: 'POST',
+                            headers: { 'Content-Type': 'application/json' },
+                            body: JSON.stringify({ message: prompt, history }),
+                            signal: controller.signal
+                        });
+                        if (res.status === 401) return 'Please log in again to use the assistant.';
+                        let data = {};
+                        try { data = await res.json(); } catch (_) { }
+                        if (!res.ok || !data.reply) throw new Error(data.error || ('Server error ' + res.status));
+                        return data.reply;
+                    } catch (err) {
+                        console.warn('AI request failed:', err.message);
+                        toast('AI is unavailable right now. Showing a demo answer.');
+                        return demoReply(prompt);
+                    } finally { clearTimeout(timer); }
+                }
+
+                function addMessage(text, who) {
+                    const div = document.createElement('div');
+                    div.className = 'm ' + who;
+                    div.textContent = text;
+                    chat.appendChild(div);
+                    chat.scrollTop = chat.scrollHeight;
+                    return div;
+                }
+
+                async function send(text) {
+                    text = (text || '').trim();
+                    if (!text || busy) return;
+                    busy = true;
+                    $('#in').value = '';
+                    const sug = $('#sug');
+                    if (sug) sug.style.display = 'none';
+                    addMessage(text, 'u');
+                    const loading = addMessage('', 'a');
+                    loading.innerHTML = '<div class="dots"><i></i><i></i><i></i></div>';
+                    try {
+                        const reply = await getAIResponse(text);
+                        history.push({ role: 'user', content: text }, { role: 'assistant', content: reply });
+                        loading.remove();
+                        addMessage(reply, 'a');
+
+                        await saveMsgToServer('user', text);
+                        await saveMsgToServer('assistant', reply);
+                        loadConversationList();
+
+                        if (speakOn && 'speechSynthesis' in window) {
+                            speechSynthesis.speak(new SpeechSynthesisUtterance(reply));
+                        }
+                    } catch (err) {
+                        console.error('send failed:', err);
+                        loading.remove();
+                        addMessage('Something went wrong. Please try again.', 'a');
+                    } finally { busy = false; }
+                }
+
+                function newChat() {
+                    history.length = 0;
+                    currentConvId = null;
+                    chat.innerHTML = '';
+                    const uname = chat.dataset.username || 'there';
+                    addMessage(`👋 Hi ${uname}! What would you like to learn today?`, 'a');
+                    const sug = $('#sug');
+                    if (sug) sug.style.display = '';
+                    loadConversationList();
+                }
+
+                $('#send').onclick = () => send($('#in').value);
+                $('#in').addEventListener('keydown', e => {
+                    if (e.key === 'Enter') { e.preventDefault(); send(e.target.value); }
+                });
+                $('#sug').addEventListener('click', e => {
+                    const b = e.target.closest('button');
+                    if (b) send(b.textContent);
+                });
+                $('#caps').addEventListener('click', e => {
+                    const c = e.target.closest('.fcard');
+                    if (c) send(c.dataset.p);
+                });
+                $$('.hi').forEach(b => b.onclick = () => send(b.dataset.p));
+                $('#nc').onclick = newChat;
+                newChat();
+
+                const Recognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+                let listener = null;
+                $('#mic').onclick = () => {
+                    if (!Recognition) return toast('Voice input is not supported in this browser');
+                    if (listener) return listener.stop();
+                    listener = new Recognition();
+                    listener.lang = 'en-US';
+                    $('#mic').classList.add('on');
+                    listener.onresult = e => {
+                        const t = e.results && e.results[0] && e.results[0][0] && e.results[0][0].transcript;
+                        if (t) send(t);
+                    };
+                    listener.onerror = () => toast('Could not hear you. Check mic permission.');
+                    listener.onend = () => { listener = null; $('#mic').classList.remove('on'); };
+                    listener.start();
+                };
+                $('#spk').onclick = function () {
+                    speakOn = !speakOn;
+                    this.textContent = speakOn ? '🔊' : '🔈';
+                    if (!speakOn && 'speechSynthesis' in window) speechSynthesis.cancel();
+                    toast(speakOn ? 'Replies will be read aloud' : 'Read aloud off');
+                };
+            }
+
+            const floaters = [...$$('.fc')];
+            if (floaters.length) {
+                (function float(t) {
+                    floaters.forEach((c, i) => {
+                        const a = +c.dataset.f;
+                        c.style.transform =
+                            `translate(${Math.sin(t / 1800 + i) * a * .6}px, ${Math.sin(t / 1200 + i * 1.7) * a}px)`;
+                    });
+                    requestAnimationFrame(float);
+                })(0);
+            }
+
+            $$('form').forEach(f => {
+                f.addEventListener('submit', () => {
+                    const b = f.querySelector('button[type="submit"]');
+                    if (b && !b.disabled) {
+                        b.disabled = true;
+                        b.style.opacity = .6;
+                        b.style.cursor = 'wait';
+                        setTimeout(() => {
+                            b.disabled = false;
+                            b.style.opacity = '';
+                            b.style.cursor = '';
+                        }, 1500);
+                    }
+                });
+            });
+
+            const topBtn = $('#top');
+            const navEl = $('nav');
+            if (navEl && topBtn) {
+                window.addEventListener('scroll', () => {
+                    navEl.classList.toggle('scrolled', scrollY > 20);
+                    topBtn.classList.toggle('show', scrollY > 600);
+                }, { passive: true });
+                topBtn.onclick = () => scrollTo({ top: 0, behavior: 'smooth' });
+            }
+        })();
+    </script>
+
+    <!-- Preloader hide logic -->
+    <!-- Preloader hide logic — with minimum display time -->
+<script>
+    (function () {
+        const MIN_DISPLAY_MS = 1500;   // ← change this to control how long it shows
+        const start = performance.now();
+
+        function hidePreloader() {
+            const pl = document.getElementById('preloader');
+            if (!pl) return;
+
+            const elapsed = performance.now() - start;
+            const remaining = Math.max(0, MIN_DISPLAY_MS - elapsed);
+
+            setTimeout(() => {
+                pl.classList.add('hide');
+                setTimeout(() => pl.remove(), 700);
+            }, remaining);
+        }
+
+        if (document.readyState === 'complete') {
+            hidePreloader();
+        } else {
+            window.addEventListener('load', hidePreloader);
+        }
+
+        // Safety net — force hide after 5s no matter what
+        setTimeout(() => {
+            const pl = document.getElementById('preloader');
+            if (pl) {
+                pl.classList.add('hide');
+                setTimeout(() => pl.remove(), 700);
+            }
+        }, 5000);
+    })();
+</script>
+<!-- Global: show/hide password toggle -->
+<script>
+    (function () {
+        function attachToggles() {
+            document.querySelectorAll('input[type="password"]').forEach(input => {
+                if (input.dataset.pwdWrapped === "1") return;
+                input.dataset.pwdWrapped = "1";
+
+                const wrap = document.createElement("div");
+                wrap.className = "pwd-wrap";
+                input.parentNode.insertBefore(wrap, input);
+                wrap.appendChild(input);
+
+                const btn = document.createElement("button");
+                btn.type = "button";
+                btn.className = "pwd-toggle";
+                btn.setAttribute("aria-label", "Show password");
+                btn.innerHTML = "👁";
+                wrap.appendChild(btn);
+
+                btn.addEventListener("click", () => {
+                    const showing = input.type === "text";
+                    input.type = showing ? "password" : "text";
+                    btn.innerHTML = showing ? "👁" : "🙈";
+                    btn.setAttribute("aria-label", showing ? "Show password" : "Hide password");
+                });
+            });
+        }
+
+        if (document.readyState === "loading") {
+            document.addEventListener("DOMContentLoaded", attachToggles);
+        } else {
+            attachToggles();
+        }
+    })();
+</script>
+    
+
+</body>
+
+</html>

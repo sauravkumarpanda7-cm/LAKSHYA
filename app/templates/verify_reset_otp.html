@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+{% block title %}Verify code | LAKSHYA{% endblock %}
+{% block content %}
+<div class="glass auth">
+    <h1>Check your email</h1>
+    <p class="s">We sent a 6-digit code to <strong>{{ email }}</strong>. It expires in 10 minutes.</p>
+
+    <form method="post" autocomplete="off">
+        <input type="text" name="code" placeholder="123456" inputmode="numeric" pattern="[0-9]*" maxlength="6" autofocus
+            required style="letter-spacing:8px;text-align:center;font-size:22px;font-weight:600">
+        <button class="btn p" type="submit">Verify code</button>
+    </form>
+
+    <div style="display:flex;gap:10px;margin-top:16px">
+        <form method="post" action="{{ url_for('auth.resend_reset_otp') }}" style="flex:1">
+            <button class="btn o sm" type="submit" style="width:100%">Resend code</button>
+        </form>
+        <form method="post" action="{{ url_for('auth.cancel_reset') }}" style="flex:1">
+            <button class="btn o sm" type="submit" style="width:100%">Cancel</button>
+        </form>
+    </div>
+</div>
+{% endblock %}

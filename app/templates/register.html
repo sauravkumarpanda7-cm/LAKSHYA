@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+{% block title %}Create account | LAKSHYA{% endblock %}
+{% block content %}
+<div class="glass auth">
+    <h1>Create account</h1>
+    <p class="s">Start earning XP for every study session.</p>
+    <form method="post">
+        <input type="text" name="username" placeholder="Username" required autocomplete="username">
+        <input type="email" name="email" placeholder="Email" required autocomplete="email">
+        <input type="password" name="password" placeholder="Password" required autocomplete="new-password">
+        <button class="btn p" type="submit">Create account</button>
+    </form>
+    <p class="alt">Already have an account? <a href="{{ url_for('auth.login') }}">Log in</a></p>
+</div>
+{% endblock %}

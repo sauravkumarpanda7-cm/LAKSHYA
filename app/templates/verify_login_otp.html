@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+{% block title %}Two-factor login | LAKSHYA{% endblock %}
+{% block content %}
+<div class="glass auth">
+    <h1>Two-factor verification</h1>
+    <p class="s">We sent a 6-digit code to <strong>{{ email }}</strong>. It expires in 10 minutes.</p>
+
+    <form method="post" autocomplete="off">
+        <input type="text" name="code" placeholder="123456" inputmode="numeric" pattern="[0-9]*" maxlength="6" autofocus
+            required style="letter-spacing:8px;text-align:center;font-size:22px;font-weight:600">
+        <button class="btn p" type="submit">Verify &amp; log in</button>
+    </form>
+
+    <div style="display:flex;gap:10px;margin-top:16px">
+        <form method="post" action="{{ url_for('auth.resend_login_otp') }}" style="flex:1">
+            <button class="btn o sm" type="submit" style="width:100%">Resend code</button>
+        </form>
+        <form method="post" action="{{ url_for('auth.cancel_login') }}" style="flex:1">
+            <button class="btn o sm" type="submit" style="width:100%">Cancel</button>
+        </form>
+    </div>
+
+    <p class="alt" style="margin-top:16px">
+        <small style="color:var(--m)">
+            Didn't get the email? Check spam, or check the Flask terminal — the OTP prints there in dev mode if SMTP
+            isn't set up.
+        </small>
+    </p>
+</div>
+{% endblock %}

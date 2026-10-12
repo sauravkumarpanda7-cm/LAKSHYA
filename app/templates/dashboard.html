@@ -1,0 +1,99 @@
+{% extends "base.html" %}
+{% block title %}Dashboard | LAKSHYA{% endblock %}
+{% block content %}
+{% set done = tasks | selectattr('completed') | list | length %}
+{% set pct = (user_xp_in_level / user_xp_needed * 100) | round(0, 'floor') | int %}
+{% set title = user_title %}
+
+<section style="padding-top:30px">
+
+    <!-- Level card -->
+    <div class="glass ach">
+        <div class="hello">
+            <h1 style="font-size:26px">Welcome back, {{ user.username }} 👋</h1>
+            <span style="color:var(--m)">{{ user_xp_in_level }} / {{ user_xp_needed }} XP to Level {{ user.level + 1
+                }}</span>
+        </div>
+        <div class="bar"><span style="width:{{ pct }}%"></span></div>
+        <div class="hello">
+            <strong>Level {{ user.level }} · {{ title }}</strong>
+            <span style="color:var(--m)">{{ user.xp }} XP total</span>
+        </div>
+    </div>
+
+    <!-- Stats row -->
+        <div class="dgrid">
+            <div class="glass sc"><small>Level</small><b>⭐ {{ user.level }}</b></div>
+            <div class="glass sc"><small>Total XP</small><b>⚡ {{ user.xp }}</b></div>
+            <div class="glass sc"><small>Day streak</small><b>🔥 {{ user.streak }}</b></div>
+            <div class="glass sc"><small>Tasks done</small><b>{{ done }} / {{ tasks | length }}</b></div>
+            <div class="glass sc"><small>Next reset</small><b>🌅 Midnight</b></div>
+        </div>
+
+    <div class="two">
+        <!-- Quests -->
+        <div class="glass pan">
+            <h3>Your quests</h3>
+            <form class="addtask" method="post" action="{{ url_for('task.add_task') }}">
+                <input type="text" name="title" placeholder="Add a new quest…" maxlength="200" required
+                    aria-label="New quest">
+                <select name="xp_reward" aria-label="XP reward"
+                    style="background:transparent;color:inherit;border:1px solid rgba(255,255,255,.15);border-radius:8px;padding:8px 10px">
+                    <option value="30">Easy · 30 XP</option>
+                    <option value="50" selected>Normal · 50 XP</option>
+                    <option value="100">Hard · 100 XP</option>
+                    <option value="150">Epic · 150 XP</option>
+                </select>
+                <button class="btn p sm" type="submit">Add</button>
+            </form>
+
+            {% for task in tasks %}
+            <div class="trow {{ 'done' if task.completed }}">
+                <span class="ck">{{ '✓' if task.completed }}</span>
+                <span class="tt">{{ task.title }}</span>
+                <span class="xp">+{{ task.xp_reward }} XP</span>
+
+                {% if not task.completed %}
+                <form method="post" action="{{ url_for('task.complete_task', id=task.id) }}">
+                    <button class="btn p sm" type="submit">Complete</button>
+                </form>
+                {% endif %}
+                <form method="post" action="{{ url_for('task.delete_task', id=task.id) }}">
+                    <button class="btn o sm" type="submit" title="Remove quest" aria-label="Delete">✕</button>
+                </form>
+            </div>
+            {% else %}
+            <p class="empty">
+                🎯 No quests yet.<br>
+                <small>Add your first one above to start earning XP.</small>
+            </p>
+            {% endfor %}
+        </div>
+
+        <!-- Achievements -->
+        <div class="glass pan">
+            <div style="display:flex;align-items:baseline;justify-content:space-between">
+                <h3 style="margin-bottom:6px">Achievements</h3>
+                <small style="color:var(--m)">{{ unlocked_count }} / {{ total_achievements }} unlocked</small>
+            </div>
+
+            <div class="ach-grid">
+                {% for a, unlocked, when in achievements %}
+                <div class="ach-badge {{ 'on' if unlocked else 'off' }}"
+                    title="{{ a.name }} — {{ a.desc }}{% if when %} (unlocked {{ when.strftime('%b %d') }}){% endif %}">
+                    <div class="ach-ico">{{ a.icon }}</div>
+                    <div class="ach-name">{{ a.name }}</div>
+                    <div class="ach-desc">{{ a.desc }}</div>
+                </div>
+                {% endfor %}
+            </div>
+
+            <div class="rec" style="margin-top:22px">
+                <span>🤖</span>
+                <span>Stuck on a quest? Ask the AI assistant to explain it or make a plan.</span>
+            </div>
+            <a class="btn o sm" href="{{ url_for('ai.assistant') }}">Open AI Assistant</a>
+        </div>
+    </div>
+</section>
+{% endblock %}
